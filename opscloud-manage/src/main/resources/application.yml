@@ -1,0 +1,137 @@
+spring:
+  application:
+    name: opscloud
+    version: 4.6.0
+  threads:
+    virtual:
+      enabled: true
+  lifecycle:
+    timeout-per-shutdown-phase: 60s
+  # 关闭控制台
+  shell:
+    interactive:
+      enabled: false
+  main:
+    # 允许循环依赖
+    allow-circular-references: on
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  jmx:
+    enabled: off
+  profiles:
+    active: '@env@'
+  thymeleaf:
+    cache: off
+#  web:
+#    resources:
+#      static-locations: classpath:/static/
+#  mvc:
+#    static-path-pattern: /static/**
+
+# OpenAPI
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: on
+  api-docs:
+    path: /v3/api-docs
+    enabled: on
+  paths-to-match: '/**'
+  packages-to-scan: com.baiyi.opscloud.controller.http
+
+# 白名单配置
+white:
+  urls:
+    - /*.js
+    - /*.css
+    - /*.jpg
+    - /*.ico
+    - /swagger-resources
+    - /swagger-ui.html
+    - /v3/api-docs
+    - /doc.html
+    - /api/ws/guacamole/tunnel
+    - /api/ws/terminal
+    - /api/ws/kubernetes/terminal
+    - /api/ws/kubernetes/deployment
+    - /api/ws/terminal/session/audit
+    - /api/ws/server/task/play
+    - /api/ws/jenkins/build/executor/status
+    - /api/ws/continuous-delivery/build
+    - /api/ws/continuous-delivery/deploy
+    - /api/ws/continuous-delivery/jenkins/console/stream
+    - /api/out/ticket/approve
+  resources:
+    - .js
+    - .md
+    - .css
+    - .woff
+    - .woff2
+    - .otf
+    - .eot
+    - .ttf
+    - .svg
+    - .jpg
+    - .png
+    - .html
+
+server:
+  # 服务端口
+  port: 8080
+  servlet:
+    # 项目contextPath
+    context-path: /
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    accept-count: 400
+    max-connections: 800
+    max-http-form-post-size: 209715200
+    threads:
+      # tomcat最大线程数，默认为200
+      max: 800
+      # Tomcat启动初始化的线程数，默认值25
+      min-spare: 25
+  shutdown: graceful
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: on
+  support-methods-arguments: on
+  params: count=countSql
+
+# mybatis
+mybatis:
+  type-aliases-package: com.baiyi.opscloud.domain
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: on
+
+mapper:
+  mappers:
+    - tk.mybatis.mapper.common.Mapper
+  not-empty: true
+  identity: MYSQL
+  before: false
+
+ssh:
+  shell:
+    version: 2.0.0
+    authentication: security
+    commands:
+      actuator:
+        excludes:
+          - audit
+      history:
+        enable: off
+    display-banner: on
+    host: 0.0.0.0
+    port: 2222
+    shared-history: off
+    history-directory: ${home}/opscloud-data/ssh-server/history-log/
+    host-key-file: ${home}/opscloud-data/ssh-server/hostKey.ser
+    prompt:
+      # white|cyan
+      color: cyan
+      text: 'ssh-server>'

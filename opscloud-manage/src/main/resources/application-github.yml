@@ -1,0 +1,56 @@
+logging:
+  level:
+    # swagger 警告日志忽略
+    io.swagger.models.parameters.AbstractSerializableParameter: error
+    org.springframework: warn
+    io.fabric8.kubernetes.client.utils.HttpClientUtils: error
+log:
+  file:
+    path: ${HOME}/logs
+
+opscloud:
+  dataPath: ${HOME}/opscloud-data
+  createUser:
+    roles:
+      - base
+    userGroups:
+  outapi:
+    workorder:
+      approval: 'http://127.0.0.1:8080/api/out/ticket/approve?ticketId=%s&username=%s&approvalType=%s&token=%s'
+
+# auditPath 审计日志目录
+# openAudit :on 开启审计日志 off 关闭审计日志
+terminal:
+  audit:
+    open: on
+    path: ${HOME}/opscloud-data/ssh/audit
+
+spring:
+  config:
+    activate:
+      on-profile:
+        - github
+  data:
+    redis:
+      host: redis.opscloud4.baiyi.com
+      port: 6379
+      password:
+      jedis:
+        pool:
+          max-wait: 5000
+          max-idle: 20
+          max-active: 100
+          min-idle: 0
+  datasource:
+    url: jdbc:mysql://mysql.opscloud4.baiyi.com:3306/opscloud4-prod?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useInformationSchema=true&tinyInt1isBit=true&nullCatalogMeansCurrent=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: opscloud4
+    password: '6Ln7N9uPYOyfNmF1'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# java -jar -Djasypt.encryptor.password=${password}
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: 'org.jasypt.iv.NoIvGenerator'
+    # 开源版本默认密钥, 可修改
+    password: '1^Z!NxcB4s!0Sxz&URokZ6DdZnNn#acO#ELjM&kvun^LV!yCB%ec*^NJ%5xvCGlJ6&SHGtKN#Gs!fK%lq8aQYpfLlwkFrvQrcp1VzYGt74vdVcMmUk73%HCrOV07IZw0'

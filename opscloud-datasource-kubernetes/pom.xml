@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>opscloud</artifactId>
+        <groupId>com.baiyi</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>opscloud-datasource-kubernetes</artifactId>
+
+    <properties>
+        <fabric8-sdk.version>6.9.2</fabric8-sdk.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.baiyi</groupId>
+            <artifactId>opscloud-datasource-core</artifactId>
+        </dependency>
+
+        <!-- https://github.com/fabric8io/kubernetes-client -->
+        <!-- https://mvnrepository.com/artifact/io.fabric8/kubernetes-client -->
+        <!--suppress VulnerableLibrariesLocal -->
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>kubernetes-client</artifactId>
+            <version>${fabric8-sdk.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.fabric8/kubernetes-model -->
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>kubernetes-model</artifactId>
+            <version>${fabric8-sdk.version}</version>
+        </dependency>
+
+        <!--  https://search.maven.org/artifact/io.fabric8/istio-client/6.9.0/jar?eh= -->
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>istio-client</artifactId>
+            <version>${fabric8-sdk.version}</version>
+        </dependency>
+
+    </dependencies>
+
+</project>
